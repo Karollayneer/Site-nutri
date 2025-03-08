@@ -1,0 +1,35 @@
+<!DOCTYPE html>  
+<html>  
+<head>  
+    <title>Relatório do Paciente</title>  
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">  
+</head>  
+<body class="container">  
+    <h1>Relatório do Paciente</h1>  
+
+    <div class="card mt-3">  
+        <div class="card-header">  
+            Informações Pessoais  
+        </div>  
+        <div class="card-body">  
+            <h5 class="card-title">{{ paciente.nome }}</h5>  
+            <p class="card-text"><strong>CPF:</strong> {{ paciente.cpf }}</p>  
+            <p class="card-text"><strong>Idade:</strong> {{ paciente.idade }}</p>  
+        </div>  
+    </div>  
+
+    <div class="card mt-3">  
+        <div class="card-header">  
+            Dados Clínicos  
+        </div>  
+        <div class="card-body">  
+            <p class="card-text"><strong>Peso:</strong> {{ paciente.peso }} kg</p>  
+            <p class="card-text"><strong>Altura:</strong> {{ paciente.altura }} m</p>  
+            <p class="card-text"><strong>Descrição:</strong> {{ paciente.descricao }}</p>  
+            <p class="card-text"><strong>Objetivo:</strong> {{ paciente.objetivo }}</p>  <!- Adicionado Objetivo -->  
+        </div>  
+    </div>  
+
+    <a href="{{ url_for('pesquisar') }}" class="btn btn-secondary mt-3">Voltar para Pesquisa</a>  
+</body>  
+</html>  

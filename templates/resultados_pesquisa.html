@@ -1,0 +1,44 @@
+<!DOCTYPE html>  
+<html>  
+<head>  
+    <title>Resultados da Pesquisa</title>  
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">  
+</head>  
+<body class="container">  
+    <h1>Resultados da Pesquisa</h1>  
+    {% if resultados %}  
+        <table class="table table-striped">  
+            <thead>  
+                <tr>  
+                    <th>Nome</th>  
+                    <th>CPF</th>  
+                    <th>Idade</th>  
+                    <th>Peso</th>  
+                    <th>Altura</th>  
+                    <th>Descrição</th>  
+                    <th>Ações</th>  
+                </tr>  
+            </thead>  
+            <tbody>  
+                {% for paciente in resultados %}  
+                <tr>  
+                    <td>{{ paciente.nome }}</td>  
+                    <td>{{ paciente.cpf }}</td>  
+                    <td>{{ paciente.idade }}</td>  
+                    <td>{{ paciente.peso }}</td>  
+                    <td>{{ paciente.altura }}</td>  
+                    <td>{{ paciente.descricao }}</td>  
+                    <td>  
+                        <a href="{{ url_for('editar', id=paciente.id) }}" class="btn btn-sm btn-primary">Editar</a>  
+                        <a href="{{ url_for('relatorio', id=paciente.id) }}" class="btn btn-sm btn-info">Relatório</a>  
+                    </td>  
+                </tr>  
+                {% endfor %}  
+            </tbody>  
+        </table>  
+    {% else %}  
+        <p>Nenhum paciente encontrado.</p>  
+    {% endif %}  
+    <a href="{{ url_for('pesquisar') }}" class="btn btn-secondary mt-3">Nova Pesquisa</a>  
+</body>  
+</html>  
