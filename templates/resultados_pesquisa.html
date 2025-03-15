@@ -3,6 +3,7 @@
 <head>  
     <title>Resultados da Pesquisa</title>  
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">  
+    <link rel="stylesheet" href="static/res_pes.css">  
 </head>  
 <body class="container">  
     <h1>Resultados da Pesquisa</h1>  
@@ -31,6 +32,10 @@
                     <td>  
                         <a href="{{ url_for('editar', id=paciente.id) }}" class="btn btn-sm btn-primary">Editar</a>  
                         <a href="{{ url_for('relatorio', id=paciente.id) }}" class="btn btn-sm btn-info">Relatório</a>  
+                        <!-- Botão para excluir paciente -->  
+                        <form action="{{ url_for('excluir', id=paciente.id) }}" method="POST" style="display:inline;">  
+                            <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Você tem certeza que deseja excluir este paciente?');">Excluir</button>  
+                        </form>  
                     </td>  
                 </tr>  
                 {% endfor %}  

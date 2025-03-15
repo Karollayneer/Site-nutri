@@ -1,5 +1,5 @@
-from flask import Flask, render_template, request, redirect, url_for   # type: ignore
-from flask_sqlalchemy import SQLAlchemy   # type: ignore
+from flask import Flask, render_template, request, redirect, url_for   # type: ignore  
+from flask_sqlalchemy import SQLAlchemy   # type: ignore  
 
 app = Flask(__name__)  
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///pacientes.db'  
@@ -22,24 +22,24 @@ class Paciente(db.Model):
         return f"Paciente('{self.nome}', '{self.idade}')"  
 
 
-# Criar o banco de dados apenas se ele não existir
+# Criar o banco de dados apenas se ele não existir  
 with app.app_context():  
     db.create_all()  
 
-    # Adicionar um paciente de teste caso o banco esteja vazio
-    if Paciente.query.first() is None:
-        paciente_teste = Paciente(
-            nome="Paciente Teste",
-            idade=30,
-            cpf="000.000.000-00",
-            peso=70.0,
-            altura=1.75,
-            sexo="Masculino",
-            objetivo="Saúde",
-            descricao="Paciente de teste"
-        )
-        db.session.add(paciente_teste)
-        db.session.commit()
+    # Adicionar um paciente de teste caso o banco esteja vazio  
+    if Paciente.query.first() is None:  
+        paciente_teste = Paciente(  
+            nome="Paciente Teste",  
+            idade=30,  
+            cpf="000.000.000-00",  
+            peso=70.0,  
+            altura=1.75,  
+            sexo="Masculino",  
+            objetivo="Saúde",  
+            descricao="Paciente de teste"  
+        )  
+        db.session.add(paciente_teste)  
+        db.session.commit()  
 
 
 @app.route('/', methods=['GET', 'POST'])  
@@ -54,9 +54,9 @@ def index():
         descricao = request.form['descricao']  
         objetivo = request.form['objetivo']  
 
-        novo_paciente = Paciente(
-            nome=nome, idade=idade, cpf=cpf, peso=peso, altura=altura, 
-            sexo=sexo, descricao=descricao, objetivo=objetivo
+        novo_paciente = Paciente(  
+            nome=nome, idade=idade, cpf=cpf, peso=peso, altura=altura,   
+            sexo=sexo, descricao=descricao, objetivo=objetivo  
         )  
         db.session.add(novo_paciente)  
         db.session.commit()  
@@ -103,6 +103,12 @@ def relatorio(id):
     return render_template('relatorio.html', paciente=paciente)  
 
 
+@app.route('/excluir/<int:id>', methods=['POST'])  
+def excluir(id):  
+    paciente = Paciente.query.get_or_404(id)  
+    db.session.delete(paciente)  
+    db.session.commit()  
+    return redirect(url_for('pesquisar'))  
 
 
 if __name__ == '__main__':  
